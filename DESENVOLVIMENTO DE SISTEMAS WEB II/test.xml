@@ -1,0 +1,21 @@
+eXtensible Markup Language (XML
+HyperText Markup Language (HTML) is a markup language used for creating web pages and web applications. It is the standard language for structuring and presenting content on the World Wide Web. HTML uses a system of tags to define elements such as headings, paragraphs, links, images, and other multimedia content.
+
+São muito em formatos parecidos, mas no XML tem o DTD (Document Type Definition)
+ que define a estrutura e os elementos permitidos no documento XML. 
+ O XML é mais flexível e permite a criação de tags personalizadas, e
+ nquanto o HTML possui um conjunto fixo de tags predefinidas. 
+ Além disso, o XML é usado principalmente para armazenar e transportar dados, 
+enquanto o HTML é usado para exibir conteúdo na web.
+
+O XHTML (eXtensible HyperText Markup Language) é uma reformulação do HTML como uma aplicação XML. 
+Ele combina a flexibilidade do XML com a estrutura do HTML, 
+permitindo que os desenvolvedores criem documentos web que sejam mais rigorosos e consistentes. 
+O XHTML exige que todos os elementos sejam corretamente fechados e aninhados, 
+seguindo as regras do XML, o que ajuda a garantir a 
+compatibilidade entre diferentes navegadores e dispositivos.
+
+No XHTML sempre que abrir uma tag, é necessário fechá-la, mesmo que seja uma tag vazia.
+
+
+
