@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Geolocalização</title>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+</head>
+<body>
+    <h1>Exemplo de Geolocalização</h1>
+  <div id="map" style="height: 400px;"></div>
+    
+    <p id="resposta"></p>
+
+    <button onclick="getLocation()">Obter Localização</button>
+    <script> 
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+
+function getLocation() {
+    console.log("Obtendo localização...");
+    const r = document.getElementById("resposta");
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        r.innerHTML = "Geolocalização não é suportada por este navegador.";
+    }
+}
+
+function showPosition(position) {
+    const r = document.getElementById("resposta");
+    r.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+
+    const lation = new L.LatLng(position.coords.latitude, position.coords.longitude);
+    map.setView(lation, 15);
+    L.marker(lation).addTo(map)
+        .bindPopup("Você está aqui!")
+        .openPopup();
+}
+
+function showError(error) {
+    const r = document.getElementById("resposta");
+
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            r.textContent = "Permissão para acessar a localização negada.";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            r.textContent = "Localização indisponível.";
+            break;
+        case error.TIMEOUT:
+            r.textContent = "O tempo para obter a localização expirou.";
+            break;
+        default:
+            r.textContent = "Não foi possível obter sua localização.";
+    }
+}
+    </script>
+</body>
+ 
+
+     
+     
+</html>
