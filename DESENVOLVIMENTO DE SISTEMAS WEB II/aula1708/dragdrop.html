@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function dragStart(event) {
+            console.log("Iniciando o arraste do elemento: " + event.target.id);
+            event.dataTransfer.setData("text/plain", event.target.id);
+        }
+
+        function dragOver(event) {
+            event.preventDefault();
+            console.log("Arrastando sobre o elemento: " + event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const id = event.dataTransfer.getData("text/plain");
+            const elemento = document.getElementById(id);
+
+            event.currentTarget.appendChild(elemento);
+            console.log("Elemento solto em: " + event.currentTarget.id);
+        }
+
+        
+    </script>
+</head>
+<body>
+    Exemplo de drag and drop
+    <div id="div1"
+         ondragover="dragOver(event)"
+         ondrop="drop(event)"
+         style="background-color: gray; border: 1px solid black; width: 350px; height: 70px; padding: 10px; margin: 10px;">
+    </div>
+
+    <img src="https://www.w3schools.com/html/img_girl.jpg" draggable="true" ondragstart="dragStart(event)" id="drag1" width="88" height="31">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm71KFLzhf_inNwwv7QzB2tBrVZBOjUi9izbycZxX4Wqk59esCX_050oY&s=10" draggable="true" ondragstart="dragStart(event)" id="drag2" width="88" height="31">
+
+
+    
+</body>
+</html>

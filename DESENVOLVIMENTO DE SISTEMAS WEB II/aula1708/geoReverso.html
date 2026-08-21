@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nominatim example</title>
+</head>
+
+<body>
+
+    <p>Click the button to get your coordinates.</p>
+
+    <button onclick="getLocation()">Try It</button>
+
+    <p id="demo">Results here</p>
+
+    City: <input type="text" id="city" /> <br/>
+    State / district: <input type="text" id="state_district" /> <br/>
+    State: <input type="text" id="state" /> <br/>
+    Postal code: <input type="text" id="postcode" /> <br/>
+    Country: <input type="text" id="country" /> <br/>
+    Country code: <input type="text" id="country_code" /> <br/>
+
+    <script>
+        var x = document.getElementById("demo");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            var url = "https://nominatim.openstreetmap.org/reverse?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&format=json&json_callback=showPositionInfo";
+            var script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+        }
+
+        function showPositionInfo(positionInfo) {
+            document.getElementById("city").value = positionInfo.address.city;
+            document.getElementById("state_district").value = positionInfo.address.state_district;
+            document.getElementById("state").value = positionInfo.address.state;
+            document.getElementById("postcode").value = positionInfo.address.postcode;
+            document.getElementById("country").value = positionInfo.address.country;
+            document.getElementById("country_code").value = positionInfo.address.country_code;
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
