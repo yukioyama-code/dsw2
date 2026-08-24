@@ -29,7 +29,7 @@ web armazene dados localmente no dispositivo do usuário, usando pares de chave 
 
         function armazenar(){   
             if(typeof(Storage) !== "undefined"){
-                localStorage.setItem("nome", "Yuki");
+                sessionStorage.setItem("nome", "Yuki");
                 x.innerHTML = "Nome armazenado com sucesso!";           
         }else{
             x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
@@ -40,7 +40,7 @@ web armazene dados localmente no dispositivo do usuário, usando pares de chave 
 
     function recuperar(){
         if(typeof(Storage) !== "undefined"){
-            x.innerHTML = "Nome recuperado: " + localStorage.getItem("nome");
+            x.innerHTML = "Nome recuperado: " + sessionStorage.getItem("nome");
         }else{
             x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
         }
@@ -49,12 +49,12 @@ web armazene dados localmente no dispositivo do usuário, usando pares de chave 
 
     function clickCounter(){
         if(typeof(Storage) !== "undefined"){
-            if(localStorage.clickcount){
-                localStorage.clickcount = Number(localStorage.clickcount)+1;
+            if(sessionStorage.clickcount){
+                sessionStorage.clickcount = Number(sessionStorage.clickcount)+1;
             }else{
-                localStorage.clickcount = 1;
+                sessionStorage.clickcount = 1;
             }
-            x.innerHTML = "Você clicou no botão " + localStorage.clickcount + " vezes.";
+            x.innerHTML = "Você clicou no botão " + sessionStorage.clickcount + " vezes.";
         }else{
             x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
         }
@@ -62,7 +62,7 @@ web armazene dados localmente no dispositivo do usuário, usando pares de chave 
 
     function resetCounter(){
         if(typeof(Storage) !== "undefined"){
-            localStorage.removeItem("clickcount"); //Remove item remove aquela chave e 
+            sessionStorage.removeItem("clickcount"); //Remove item remove aquela chave e 
             //o valor associado a ela
             x.innerHTML = "Contador resetado.";
         }else{
