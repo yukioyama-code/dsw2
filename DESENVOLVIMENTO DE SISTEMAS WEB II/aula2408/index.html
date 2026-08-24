@@ -1,0 +1,75 @@
+<!--Web Storage é um mecanismo do navegador que permite que uma aplicação 
+web armazene dados localmente no dispositivo do usuário, usando pares de chave e valor.-->
+
+<!-- Janela anônima é tratada como um cliente novo -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "style.css">
+
+</head>
+<body>
+    Web storage: <br> 
+    <div id = "resultado"> 
+    <button onclick = "armazenar()">Salvar</button>
+    <button onclick = "recuperar()">Recuperar</button>
+    <button onclick = "clickCounter()">Contador de cliques</button>
+    <button onclick = "resetCounter()">Resetar contador</button>
+    </div>
+
+
+    <script>
+
+        const x = document.getElementById("resultado");
+
+        function armazenar(){   
+            if(typeof(Storage) !== "undefined"){
+                localStorage.setItem("nome", "Yuki");
+                x.innerHTML = "Nome armazenado com sucesso!";           
+        }else{
+            x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
+        }
+
+    }
+
+
+    function recuperar(){
+        if(typeof(Storage) !== "undefined"){
+            x.innerHTML = "Nome recuperado: " + localStorage.getItem("nome");
+        }else{
+            x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
+        }
+        }
+
+
+    function clickCounter(){
+        if(typeof(Storage) !== "undefined"){
+            if(localStorage.clickcount){
+                localStorage.clickcount = Number(localStorage.clickcount)+1;
+            }else{
+                localStorage.clickcount = 1;
+            }
+            x.innerHTML = "Você clicou no botão " + localStorage.clickcount + " vezes.";
+        }else{
+            x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
+        }
+    }
+
+    function resetCounter(){
+        if(typeof(Storage) !== "undefined"){
+            localStorage.removeItem("clickcount"); //Remove item remove aquela chave e 
+            //o valor associado a ela
+            x.innerHTML = "Contador resetado.";
+        }else{
+            x.innerHTML = "Desculpe, seu navegador não suporta Web Storage...";
+        }
+    }
+    </script>
+    
+</body>
+</html>
