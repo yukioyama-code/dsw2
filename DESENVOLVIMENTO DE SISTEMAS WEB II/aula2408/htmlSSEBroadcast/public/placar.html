@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Placar do jogo</title>
+</head>
+
+<body>
+    <h1>Corinthians X Palmeiras</h1>
+    <div id="eventos"></div>
+
+    <script>
+        if (typeof (EventSource) !== "undefined") {
+            var source = new EventSource("/subscribe");
+            source.onmessage = function (event) {
+                document.getElementById("eventos").innerHTML += event.data + "<br>";
+            };
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+        }
+    </script>
+</body>
+
+</html>
