@@ -5,3 +5,28 @@ p {
     font-size: 20px;
     font-family: Arial, sans-serif;
 }
+
+
+h1{
+    color: darkblue;
+    font-size: 30px;
+    font-family: Verdana, sans-serif;
+}
+
+h2{
+    color: darkgreen;
+    font-size: 25px;
+    font-family: Verdana, sans-serif;
+}
+
+.subtitulo{
+    color: darkred;
+    font-size: 20px;
+    font-family: Verdana, sans-serif;
+}
+
+#subtitulo2{
+    color: darkorange;
+    font-size: 20px;
+    font-family: Verdana, sans-serif;
+}
