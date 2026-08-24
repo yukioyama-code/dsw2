@@ -30,3 +30,38 @@ h2{
     font-size: 20px;
     font-family: Verdana, sans-serif;
 }
+
+div.divisao{
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* O simbolo de maior (>) é um seletor de filho direto, ou seja, 
+ele seleciona apenas os elementos que são filhos diretos do elemento pai especificado. */
+div > p {
+    margin: 0;
+    padding: 0;
+    color: red
+}
+
+div p {
+    margin: 0;
+    padding: 0;
+    color: blue
+    
+}
+
+div:hover{
+    background-color: lightgray;    
+}
+
+/*usando pseudo-classes para selecionar o primeiro elemento li dentro de uma lista ul ou ol*/
+
+li:first-child {
+    color: red;
+}
+
+li:nth-child(2) {
+    color: blue;
+}
