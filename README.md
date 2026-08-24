@@ -10,6 +10,7 @@ A disciplina aborda conceitos e tecnologias relacionados ao desenvolvimento de a
 
 * HTML
 * CSS
+* JS
   
 ## Estrutura do repositório
 
