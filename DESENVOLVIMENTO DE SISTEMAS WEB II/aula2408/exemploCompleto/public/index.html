@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-
+<!--Navegador é single threaded, ou seja, executa uma 
+tarefa por vez-->
 <head>
     <meta charset="UTF-8">
     <title>Bolão da Copa</title>
@@ -9,18 +10,32 @@
 <body>
     <p id="mensagem"></p>
 
-    <form id="formBolao" method="GET" action="/publish">
+    <form id="formBolao" method="GET" action="/publish" onsubmit="registrarAposta()">
         Digite seu nome:
-        <input type="text" name="nome" />
+        <input type="text" name="nome" required />
         <br />
 
         Digite sua cidade:
-        <input type="text" id="cidade" name="cidade" />
+        <input type="text" id="cidade" name="cidade" required />
         <button type="button" onclick="buscarCidade()">Preencher automaticamente</button>
         <br />
 
-        Digite o campeão:
-        <input type="text" name="campeao" />
+       Digite o campeão (ou arraste uma das bandeiras para cá):
+        <input type="text" name="campeao" required ondrop="dropBandeira(event)" ondragover="allowDrop(event)" />
+        <br />
+
+     <p>
+        <img id="brFlag" src="flags/br.svg" alt="Brasil" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="caFlag" src="flags/ca.svg" alt="Canadá" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="itFlag" src="flags/it.svg" alt="Itália" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="paFlag" src="flags/py.svg" alt="Paraguai" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="peFlag" src="flags/pe.svg" alt="Peru" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="esFlag" src="flags/es.svg" alt="Espanha" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="suFlag" src="flags/se.svg" alt="Suécia" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="siFlag" src="flags/ch.svg" alt="Suíça" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="euFlag" src="flags/us.svg" alt="Estados Unidos" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        <img id="urFlag" src="flags/uy.svg" alt="Uruguai" draggable="true" ondragstart="dragBandeira(event)" width="48" />
+        </p>
         <br />
 
         <button type="submit">Enviar</button>
@@ -30,6 +45,38 @@
 
     <script>
         var x = document.getElementById("mensagem");
+        var idChosenFlag = "undefined";
+        if (typeof (Storage) !== "undefined") {
+            x.innerHTML = localStorage.getItem("ultimaAposta");
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function dragBandeira(ev) {
+            ev.dataTransfer.setData("campeao", ev.target.alt);
+            ev.dataTransfer.setData("id", ev.target.id);
+        }
+
+        function dropBandeira(ev) {
+            ev.preventDefault();
+            if(idChosenFlag !== "undefined") {
+                document.getElementById(idChosenFlag).style.display = "inline-block";
+            }
+            var data = ev.dataTransfer.getData("campeao");
+            idChosenFlag = ev.dataTransfer.getData("id");
+            ev.target.value = data;
+            document.getElementById(idChosenFlag).style.display = "none";
+        }
+
+        function registrarAposta() {
+            var d = new Date();
+            var lembrete = "Você já submeteu uma aposta em " + d;
+            if (typeof (Storage) !== "undefined") {
+                localStorage.setItem("ultimaAposta", lembrete);
+            }
+        }
 
         function buscarCidade() {
             if (navigator.geolocation) {
@@ -67,7 +114,5 @@
             }
         }
     </script>
-
 </body>
-
 </html>
