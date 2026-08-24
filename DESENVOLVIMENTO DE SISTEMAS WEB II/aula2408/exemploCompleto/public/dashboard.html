@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bolão da Copa</title>
+</head>
+
+<body>
+    <h1>Total de apostas: <span id="totalApostas"></span></h1>
+    <div id="eventos"></div>
+
+    <script>
+        if (typeof (EventSource) !== "undefined") {
+            var sourceTotalApostas = new EventSource("/subscribeTotalApostas");
+            var sourceNovasApostas = new EventSource("/subscribeNovasApostas");
+            sourceNovasApostas.onmessage = function (event) {
+                document.getElementById("eventos").innerHTML += event.data + "<br>";
+            };
+            sourceTotalApostas.onmessage = function (event) {
+                document.getElementById("totalApostas").innerHTML = event.data + "<br>";
+            };
+        } else {
+            document.getElementById("eventos").innerHTML = "Sorry, your browser does not support server-sent events...";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bolão da Copa</title>
+</head>
+
+<body>
+    <p id="mensagem"></p>
+
+    <form id="formBolao" method="GET" action="/publish">
+        Digite seu nome:
+        <input type="text" name="nome" />
+        <br />
+
+        Digite sua cidade:
+        <input type="text" id="cidade" name="cidade" />
+        <button type="button" onclick="buscarCidade()">Preencher automaticamente</button>
+        <br />
+
+        Digite o campeão:
+        <input type="text" name="campeao" />
+        <br />
+
+        <button type="submit">Enviar</button>
+        <br />
+
+    </form>
+
+    <script>
+        var x = document.getElementById("mensagem");
+
+        function buscarCidade() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(posicaoEncontrada, mostrarErro);
+            } else {
+                x.innerHTML = "Geolocalização não funciona neste navegador";
+            }
+        }
+
+        function posicaoEncontrada(posicao) {
+            var url = "http://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json&json_callback=mostrarCidade";
+            var script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+        }
+
+        function mostrarCidade(infoPosicao) {
+            document.getElementById("cidade").value = infoPosicao.address.city;
+        }
+
+        function mostrarErro(erro) {
+            switch (erro.code) {
+                case erro.PERMISSION_DENIED:
+                    x.innerHTML = "User negou a permissão para geolocalização."
+                    break;
+                case erro.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Informação de localização indisponível."
+                    break;
+                case erro.TIMEOUT:
+                    x.innerHTML = "O tempo limite para a localização esgotou."
+                    break;
+                case erro.UNKNOWN_ERROR:
+                    x.innerHTML = "Um erro desconhecido ocorreu."
+                    break;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
